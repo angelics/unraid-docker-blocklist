@@ -1,7 +1,9 @@
 FROM python:3.12-alpine
 WORKDIR /app
 COPY fetch.py server.py entrypoint.sh config.json ./
-RUN pip install --no-cache-dir requests && \
+RUN apk add --no-cache dos2unix && \
+    dos2unix /app/entrypoint.sh && \
+    pip install --no-cache-dir requests && \
     mkdir -p /data /config && \
     chmod +x entrypoint.sh && \
     mv config.json config.json.sample
