@@ -122,13 +122,11 @@ def main():
     with open(output, "w", encoding="utf-8", newline="\n") as f:
         for line in out_lines:
             f.write(line + "\n")
-    os.chmod(output, 0o666)
 
     gz_output = output + ".gz"
     with gzip.open(gz_output, "wt", encoding="utf-8", newline="\n") as f:
         for line in out_lines:
             f.write(line + "\n")
-    os.chmod(gz_output, 0o666)
 
     print(f"Total {total} ranges -> {output} (+ {gz_output})")
 

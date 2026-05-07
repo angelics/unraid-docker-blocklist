@@ -10,9 +10,19 @@ else
   echo "Using default config."
   mkdir -p "$(dirname "$CONFIG_FILE")"
   cp "$SAMPLE_FILE" "$CONFIG_FILE"
-  chmod 666 "$CONFIG_FILE"
 fi
 
-chmod 777 /data /config 2>/dev/null || true
+PUID=${PUID:-0}
+PGID=${PGID:-0}
+
+if [ "$PUID" != "0" ]; then
+  echo "Running as PUID=$PUID PGID=$PGID"
+  chown -R "$PUID:$PGID" /config /data 2>/dev/null || true
+  exec su-exec "$PUID:$PGID" "$@"
+fi
+
+# Fallback for root mode
+chmod 666 "$CONFIG_FILE" 2>/dev/null || true
+chmod 777 /config 2>/dev/null || true
 
 exec "$@"
