@@ -115,20 +115,20 @@ def main():
         total += new_count
         print(f"  +{new_count} ranges")
 
-    if total == 0 and os.path.exists(output):
-        print(f"Total 0 ranges, keeping existing file -> {output}")
+    gz_output = output + ".gz"
+
+    if total == 0 and os.path.exists(gz_output):
+        print(f"Total 0 ranges, keeping existing file -> {gz_output}")
         return
 
-    with open(output, "w", encoding="utf-8", newline="\n") as f:
-        for line in out_lines:
-            f.write(line + "\n")
-
-    gz_output = output + ".gz"
     with gzip.open(gz_output, "wt", encoding="utf-8", newline="\n") as f:
         for line in out_lines:
             f.write(line + "\n")
 
-    print(f"Total {total} ranges -> {output} (+ {gz_output})")
+    if os.path.exists(output):
+        os.remove(output)
+
+    print(f"Total {total} ranges -> {gz_output}")
 
 
 if __name__ == "__main__":
