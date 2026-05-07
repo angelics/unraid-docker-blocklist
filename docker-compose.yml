@@ -1,0 +1,9 @@
+services:
+  blocklist:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - "d:/appdata/blocklist:/config"
+      - "d:/appdata/blocklist/data:/data"
+    restart: unless-stopped

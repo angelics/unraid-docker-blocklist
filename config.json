@@ -1,0 +1,9 @@
+{
+  "sources": [
+    "https://www.ipdeny.com/ipblocks/data/aggregated/cn-aggregated.zone",
+    "https://www.ipdeny.com/ipblocks/data/aggregated/ir-aggregated.zone",
+    "https://www.ipdeny.com/ipblocks/data/aggregated/af-aggregated.zone"
+  ],
+  "output": "/data/blocklist.p2p",
+  "refresh_hours": 24
+}
